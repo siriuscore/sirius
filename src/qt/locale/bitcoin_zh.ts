@@ -36,7 +36,7 @@
     <name>BanTableModel</name>
     </context>
 <context>
-    <name>QtumGUI</name>
+    <name>SiriusGUI</name>
     <message>
         <source>Error</source>
         <translation>错误</translation>
@@ -135,8 +135,8 @@
         <translation>仅支付全额的%1</translation>
     </message>
     <message>
-        <source>Warning: Invalid Qtum address</source>
-        <translation>警告：QTUM地址无效</translation>
+        <source>Warning: Invalid Sirius address</source>
+        <translation>警告：SIRX地址无效</translation>
     </message>
     </context>
 <context>
@@ -198,7 +198,7 @@
     </message>
     </context>
 <context>
-    <name>qtum-core</name>
+    <name>sirius-core</name>
     <message>
         <source>Transaction too large for fee policy</source>
         <translation>根据费率标准，本次转账超额</translation>

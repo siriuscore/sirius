@@ -38,18 +38,18 @@ from the root of the repository.
 
 **Note**: You only need Berkeley DB if the wallet is enabled (see the section *Disable-Wallet mode* below).
 
-Build Qtum Core
+Build Sirius Core
 ------------------------
 
-1. Clone the Qtum Core source code and cd into `qtum`
+1. Clone the Sirius Core source code and cd into `sirius`
 
-        git clone --recursive https://github.com/qtumproject/qtum.git
-        cd qtum
+        git clone --recursive https://github.com/siriusproject/sirius.git
+        cd sirius
         git submodule update --init --recursive
 
-2.  Build Qtum Core:
+2.  Build Sirius Core:
 
-    Configure and build the headless Qtum Core binaries as well as the GUI (if Qt is found).
+    Configure and build the headless Sirius Core binaries as well as the GUI (if Qt is found).
 
     You can disable the GUI build by passing `--without-gui` to configure.
 
@@ -68,26 +68,26 @@ Build Qtum Core
 Running
 -------
 
-Qtum Core is now available at `./src/qtumd`
+Sirius Core is now available at `./src/siriusd`
 
 Before running, it's recommended that you create an RPC configuration file.
 
-    echo -e "rpcuser=qtumrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/Qtum/qtum.conf"
+    echo -e "rpcuser=siriusrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/Sirius/sirius.conf"
 
-    chmod 600 "/Users/${USER}/Library/Application Support/Qtum/qtum.conf"
+    chmod 600 "/Users/${USER}/Library/Application Support/Sirius/sirius.conf"
 
-The first time you run qtumd, it will start downloading the blockchain. This process could take several hours.
+The first time you run siriusd, it will start downloading the blockchain. This process could take several hours.
 
 You can monitor the download process by looking at the debug.log file:
 
-    tail -f $HOME/Library/Application\ Support/Qtum/debug.log
+    tail -f $HOME/Library/Application\ Support/Sirius/debug.log
 
 Other commands:
 -------
 
-    ./src/qtumd -daemon # Starts the qtum daemon.
-    ./src/qtum-cli --help # Outputs a list of command-line options.
-    ./src/qtum-cli help # Outputs a list of RPC commands when the daemon is running.
+    ./src/siriusd -daemon # Starts the sirius daemon.
+    ./src/sirius-cli --help # Outputs a list of command-line options.
+    ./src/sirius-cli help # Outputs a list of RPC commands when the daemon is running.
 
 Notes
 -----

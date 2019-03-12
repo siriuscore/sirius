@@ -19,10 +19,10 @@
 #include <QPixmap>
 
 #if defined(HAVE_CONFIG_H)
-#include <config/bitcoin-config.h> /* for USE_QRCODE */
+#include <config/bitcoin-config.h> /* for USE_ERCODE */
 #endif
 
-#ifdef USE_QRCODE
+#ifdef USE_ERCODE
 #include <qrencode.h>
 #endif
 
@@ -97,12 +97,12 @@ ReceiveRequestDialog::ReceiveRequestDialog(QWidget *parent) :
     SetObjectStyleSheet(ui->btnSaveAs, StyleSheetNames::ButtonWhite);
     SetObjectStyleSheet(ui->btnCopyAddress, StyleSheetNames::ButtonWhite);
 
-#ifndef USE_QRCODE
+#ifndef USE_ERCODE
     ui->btnSaveAs->setVisible(false);
-    ui->lblQRCode->setVisible(false);
+    ui->lblERCode->setVisible(false);
 #endif
 
-    connect(ui->btnSaveAs, SIGNAL(clicked()), ui->lblQRCode, SLOT(saveImage()));
+    connect(ui->btnSaveAs, SIGNAL(clicked()), ui->lblERCode, SLOT(saveImage()));
 }
 
 ReceiveRequestDialog::~ReceiveRequestDialog()
@@ -127,9 +127,9 @@ void ReceiveRequestDialog::setInfo(const SendCoinsRecipient &_info)
     update();
 }
 
-bool ReceiveRequestDialog::createQRCode(QLabel *label, SendCoinsRecipient _info, bool showAddress)
+bool ReceiveRequestDialog::createERCode(QLabel *label, SendCoinsRecipient _info, bool showAddress)
 {
-#ifdef USE_QRCODE
+#ifdef USE_ERCODE
     QString uri = GUIUtil::formatBitcoinURI(_info);
     label->setText("");
     if(!uri.isEmpty())
@@ -217,10 +217,10 @@ void ReceiveRequestDialog::update()
     }
     ui->outUri->setText(html);
 
-#ifdef USE_QRCODE
-    if(createQRCode(ui->lblQRCode, info))
+#ifdef USE_ERCODE
+    if(createERCode(ui->lblERCode, info))
     {
-        ui->lblQRCode->setScaledContents(true);
+        ui->lblERCode->setScaledContents(true);
         ui->btnSaveAs->setEnabled(true);
     }
 #endif

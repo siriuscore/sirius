@@ -33,7 +33,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLabel" name="lblQRCode">
+      <widget class="QLabel" name="lblERCode">
        <property name="minimumSize">
         <size>
          <width>200</width>

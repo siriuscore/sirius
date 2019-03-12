@@ -20,7 +20,7 @@
 #include <rpc/server.h>
 #include <qt/navigationbar.h>
 #include <qt/titlebar.h>
-#include <qt/qtumversionchecker.h>
+#include <qt/siriusversionchecker.h>
 
 #ifdef ENABLE_WALLET
 #include <qt/walletframe.h>
@@ -216,7 +216,7 @@ BitcoinGUI::BitcoinGUI(interfaces::Node& node, const PlatformStyle *_platformSty
 
     modalOverlay = new ModalOverlay(this->centralWidget());
     modalBackupOverlay = new ModalOverlay(this, ModalOverlay::Backup);
-    qtumVersionChecker = new QtumVersionChecker(this);
+    siriusVersionChecker = new SiriusVersionChecker(this);
 
 #ifdef ENABLE_WALLET
     if(enableWallet) {
@@ -259,7 +259,7 @@ void BitcoinGUI::createActions()
     tabGroup->addAction(overviewAction);
 
     sendCoinsAction = new QAction(platformStyle->MultiStatesIcon(":/icons/send_to"), tr("&Send"), this);
-    sendCoinsAction->setStatusTip(tr("Send coins to a Qtum address"));
+    sendCoinsAction->setStatusTip(tr("Send coins to a Sirius address"));
     sendCoinsAction->setToolTip(sendCoinsAction->statusTip());
     sendCoinsAction->setCheckable(true);
     sendCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
@@ -270,7 +270,7 @@ void BitcoinGUI::createActions()
     sendCoinsMenuAction->setToolTip(sendCoinsMenuAction->statusTip());
 
     receiveCoinsAction = new QAction(platformStyle->MultiStatesIcon(":/icons/receive_from"), tr("&Receive"), this);
-    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and qtum: URIs)"));
+    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and sirius: URIs)"));
     receiveCoinsAction->setToolTip(receiveCoinsAction->statusTip());
     receiveCoinsAction->setCheckable(true);
     receiveCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_3));
@@ -298,12 +298,12 @@ void BitcoinGUI::createActions()
     historyAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
     tabGroup->addAction(historyAction);
 
-    QRCTokenAction = new QAction(platformStyle->MultiStatesIcon(":/icons/qrctoken"), tr("&QRC Tokens"), this);
-    QRCTokenAction->setStatusTip(tr("QRC Tokens (send, receive or add Tokens in list)"));
-    QRCTokenAction->setToolTip(QRCTokenAction->statusTip());
-    QRCTokenAction->setCheckable(true);
-    QRCTokenAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
-    tabGroup->addAction(QRCTokenAction);
+    ERCTokenAction = new QAction(platformStyle->MultiStatesIcon(":/icons/qrctoken"), tr("&ERC20 Tokens"), this);
+    ERCTokenAction->setStatusTip(tr("ERC20 Tokens (send, receive or add Tokens in list)"));
+    ERCTokenAction->setToolTip(ERCTokenAction->statusTip());
+    ERCTokenAction->setCheckable(true);
+    ERCTokenAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
+    tabGroup->addAction(ERCTokenAction);
 
     sendTokenAction = new QAction(tr("Send"), this);
     receiveTokenAction = new QAction(tr("Receive"), this);
@@ -371,9 +371,9 @@ void BitcoinGUI::createActions()
     lockWalletAction = new QAction(platformStyle->MenuColorIcon(":/icons/lock_closed"), tr("&Lock Wallet"), this);
     lockWalletAction->setToolTip(tr("Lock wallet"));
     signMessageAction = new QAction(platformStyle->MenuColorIcon(":/icons/edit"), tr("Sign &message..."), this);
-    signMessageAction->setStatusTip(tr("Sign messages with your Qtum addresses to prove you own them"));
+    signMessageAction->setStatusTip(tr("Sign messages with your Sirius addresses to prove you own them"));
     verifyMessageAction = new QAction(platformStyle->MenuColorIcon(":/icons/verify"), tr("&Verify message..."), this);
-    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified Qtum addresses"));
+    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified Sirius addresses"));
 
     openRPCConsoleAction = new QAction(platformStyle->MenuColorIcon(":/icons/debugwindow"), tr("&Debug window"), this);
     openRPCConsoleAction->setStatusTip(tr("Open debugging and diagnostic console"));
@@ -386,11 +386,11 @@ void BitcoinGUI::createActions()
     usedReceivingAddressesAction->setStatusTip(tr("Show the list of used receiving addresses and labels"));
 
     openAction = new QAction(platformStyle->MenuColorIcon(":/icons/open"), tr("Open &URI..."), this);
-    openAction->setStatusTip(tr("Open a qtum: URI or payment request"));//QTUM_LINE
+    openAction->setStatusTip(tr("Open a sirius: URI or payment request"));//SIRX_LINE
 
     showHelpMessageAction = new QAction(platformStyle->MenuColorIcon(":/icons/info"), tr("&Command-line options"), this);
     showHelpMessageAction->setMenuRole(QAction::NoRole);
-    showHelpMessageAction->setStatusTip(tr("Show the %1 help message to get a list with possible Qtum command-line options").arg(tr(PACKAGE_NAME)));
+    showHelpMessageAction->setStatusTip(tr("Show the %1 help message to get a list with possible Sirius command-line options").arg(tr(PACKAGE_NAME)));
 
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
@@ -495,7 +495,7 @@ void BitcoinGUI::createToolBars()
         tokenActions.append(sendTokenAction);
         tokenActions.append(receiveTokenAction);
         tokenActions.append(addTokenAction);
-        appNavigationBar->mapGroup(QRCTokenAction, tokenActions);
+        appNavigationBar->mapGroup(ERCTokenAction, tokenActions);
         appNavigationBar->buildUi();
         overviewAction->setChecked(true);
     }
@@ -530,10 +530,10 @@ void BitcoinGUI::setClientModel(ClientModel *_clientModel)
     if(_clientModel)
     {
         // Check for updates
-        if(_clientModel->getOptionsModel()->getCheckForUpdates() && qtumVersionChecker->newVersionAvailable())
+        if(_clientModel->getOptionsModel()->getCheckForUpdates() && siriusVersionChecker->newVersionAvailable())
         {
-            QString link = QString("<a href=%1>%2</a>").arg(QTUM_RELEASES, QTUM_RELEASES);
-            QString message(tr("New version of Qtum wallet is available on the Qtum source code repository: <br /> %1. <br />It is recommended to download it and update this application").arg(link));
+            QString link = QString("<a href=%1>%2</a>").arg(SIRX_RELEASES, SIRX_RELEASES);
+            QString message(tr("New version of Sirius wallet is available on the Sirius source code repository: <br /> %1. <br />It is recommended to download it and update this application").arg(link));
             QMessageBox::information(this, tr("Check for updates"), message);
         }
 
@@ -813,21 +813,21 @@ void BitcoinGUI::gotoHistoryPage()
 void BitcoinGUI::gotoSendTokenPage()
 {
     sendTokenAction->setChecked(true);
-    QRCTokenAction->setChecked(true);
+    ERCTokenAction->setChecked(true);
     if (walletFrame) walletFrame->gotoSendTokenPage();
 }
 
 void BitcoinGUI::gotoReceiveTokenPage()
 {
     receiveTokenAction->setChecked(true);
-    QRCTokenAction->setChecked(true);
+    ERCTokenAction->setChecked(true);
     if (walletFrame) walletFrame->gotoReceiveTokenPage();
 }
 
 void BitcoinGUI::gotoAddTokenPage()
 {
     addTokenAction->setChecked(true);
-    QRCTokenAction->setChecked(true);
+    ERCTokenAction->setChecked(true);
     if (walletFrame) walletFrame->gotoAddTokenPage();
 }
 
@@ -885,7 +885,7 @@ void BitcoinGUI::updateNetworkState()
     QString tooltip;
 
     if (m_node.getNetworkActive()) {
-        tooltip = tr("%n active connection(s) to Qtum network", "", count) + QString(".<br>") + tr("Click to disable network activity.");
+        tooltip = tr("%n active connection(s) to Sirius network", "", count) + QString(".<br>") + tr("Click to disable network activity.");
     } else {
         tooltip = tr("Network activity disabled.") + QString("<br>") + tr("Click to enable network activity again.");
         icon = ":/icons/network_disabled";
@@ -1036,7 +1036,7 @@ void BitcoinGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVer
 
 void BitcoinGUI::message(const QString &title, const QString &message, unsigned int style, bool *ret)
 {
-    QString strTitle = tr("Qtum"); // default title
+    QString strTitle = tr("Sirius"); // default title
     // Default to information icon
     int nMBoxIcon = QMessageBox::Information;
     int nNotifyIcon = Notificator::Information;

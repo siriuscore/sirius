@@ -29,16 +29,16 @@
   <string>????</string>
 
   <key>CFBundleExecutable</key>
-  <string>Qtum-Qt</string>
+  <string>Sirius-Qt</string>
   
   <key>CFBundleName</key>
-  <string>Qtum-Qt</string>
+  <string>Sirius-Qt</string>
 
   <key>LSHasLocalizedDisplayName</key>
   <true/>
 
   <key>CFBundleIdentifier</key>
-  <string>org.qtumproject.Qtum-Qt</string>
+  <string>org.siriusproject.Sirius-Qt</string>
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -46,10 +46,10 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>org.qtum.QtumPayment</string>
+      <string>org.sirius.SiriusPayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
-        <string>qtum</string>
+        <string>sirius</string>
       </array>
     </dict>
   </array>
@@ -58,9 +58,9 @@
   <array>
     <dict>
       <key>UTTypeIdentifier</key>
-      <string>org.qtum.paymentrequest</string>
+      <string>org.sirius.paymentrequest</string>
       <key>UTTypeDescription</key>
-      <string>Qtum payment request</string>
+      <string>Sirius payment request</string>
       <key>UTTypeConformsTo</key>
       <array>
         <string>public.data</string>
@@ -68,10 +68,10 @@
       <key>UTTypeTagSpecification</key>
       <dict>
         <key>public.mime-type</key>
-        <string>application/x-qtum-payment-request</string>
+        <string>application/x-sirius-payment-request</string>
         <key>public.filename-extension</key>
         <array>
-          <string>qtumpaymentrequest</string>
+          <string>siriuspaymentrequest</string>
         </array>
       </dict>
     </dict>
@@ -84,7 +84,7 @@
       <string>Editor</string>
       <key>LSItemContentTypes</key>
       <array>
-        <string>org.qtum.paymentrequest</string>
+        <string>org.sirius.paymentrequest</string>
       </array>
       <key>LSHandlerRank</key>
       <string>Owner</string>

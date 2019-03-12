@@ -84,7 +84,7 @@
     </message>
 </context>
 <context>
-    <name>QtumGUI</name>
+    <name>SiriusGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Pasirašyti ži&amp;nutę...</translation>
@@ -170,8 +170,8 @@
         <translation>Blokai iš naujo indeksuojami...</translation>
     </message>
     <message>
-        <source>Send coins to a Qtum address</source>
-        <translation>Siųsti monetas Qtum adresui</translation>
+        <source>Send coins to a Sirius address</source>
+        <translation>Siųsti monetas Sirius adresui</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -194,8 +194,8 @@
         <translation>&amp;Tikrinti žinutę...</translation>
     </message>
     <message>
-        <source>Qtum</source>
-        <translation>Qtum</translation>
+        <source>Sirius</source>
+        <translation>Sirius</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -383,8 +383,8 @@
         <translation>Sveiki</translation>
     </message>
     <message>
-        <source>Qtum</source>
-        <translation>Qtum</translation>
+        <source>Sirius</source>
+        <translation>Sirius</translation>
     </message>
     <message>
         <source>Error</source>
@@ -436,8 +436,8 @@
         <translation>Piniginė</translation>
     </message>
     <message>
-        <source>Automatically open the Qtum client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatiškai atidaryti Qtum kliento prievadą maršrutizatoriuje. Tai veikia tik tada, kai jūsų maršrutizatorius palaiko UPnP ir ji įjungta.</translation>
+        <source>Automatically open the Sirius client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Automatiškai atidaryti Sirius kliento prievadą maršrutizatoriuje. Tai veikia tik tada, kai jūsų maršrutizatorius palaiko UPnP ir ji įjungta.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -885,7 +885,7 @@
         <translation>Įveskite pranešimą, kurį norite pasirašyti čia</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this Qtum address</source>
+        <source>Sign the message to prove you own this Sirius address</source>
         <translation>Registruotis žinute įrodymuii, kad turite šį adresą</translation>
     </message>
     <message>
@@ -901,8 +901,8 @@
         <translation>&amp;Patikrinti žinutę</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified Qtum address</source>
-        <translation>Patikrinkite žinutę, jog įsitikintumėte, kad ją pasirašė nurodytas Qtum adresas</translation>
+        <source>Verify the message to ensure it was signed with the specified Sirius address</source>
+        <translation>Patikrinkite žinutę, jog įsitikintumėte, kad ją pasirašė nurodytas Sirius adresas</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -956,10 +956,10 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>qtum-core</name>
+    <name>sirius-core</name>
     <message>
-        <source>Qtum Core</source>
-        <translation>Qtum branduolys</translation>
+        <source>Sirius Core</source>
+        <translation>Sirius branduolys</translation>
     </message>
     <message>
         <source>Error opening block database</source>

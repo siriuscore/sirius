@@ -1,5 +1,5 @@
-#ifndef QTUM_QT_TOKENTRANSACTIONDESC_H
-#define QTUM_QT_TOKENTRANSACTIONDESC_H
+#ifndef SIRX_QT_TOKENTRANSACTIONDESC_H
+#define SIRX_QT_TOKENTRANSACTIONDESC_H
 
 #include <QObject>
 #include <QString>
@@ -26,4 +26,4 @@ private:
     static QString FormatTxStatus(interfaces::Wallet& wallet, const interfaces::TokenTx& wtx);
 };
 
-#endif // QTUM_QT_TOKENTRANSACTIONDESC_H
+#endif // SIRX_QT_TOKENTRANSACTIONDESC_H

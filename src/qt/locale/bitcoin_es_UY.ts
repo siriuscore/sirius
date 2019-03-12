@@ -68,7 +68,7 @@
     <name>BanTableModel</name>
     </context>
 <context>
-    <name>QtumGUI</name>
+    <name>SiriusGUI</name>
     <message>
         <source>Synchronizing with network...</source>
         <translation>Sincronizando con la red...</translation>
@@ -122,16 +122,16 @@
         <translation>Recibiendo direcciones</translation>
     </message>
     <message>
-        <source>Send coins to a Qtum address</source>
-        <translation>Enviar monedas a una dirección Qtum</translation>
+        <source>Send coins to a Sirius address</source>
+        <translation>Enviar monedas a una dirección Sirius</translation>
     </message>
     <message>
         <source>Change the passphrase used for wallet encryption</source>
         <translation>Cambie la clave utilizada para el cifrado del monedero</translation>
     </message>
     <message>
-        <source>Qtum</source>
-        <translation>Qtum</translation>
+        <source>Sirius</source>
+        <translation>Sirius</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -256,8 +256,8 @@
 <context>
     <name>Intro</name>
     <message>
-        <source>Qtum</source>
-        <translation>Qtum</translation>
+        <source>Sirius</source>
+        <translation>Sirius</translation>
     </message>
     <message>
         <source>Error</source>
@@ -473,7 +473,7 @@
     </message>
     </context>
 <context>
-    <name>qtum-core</name>
+    <name>sirius-core</name>
     <message>
         <source>Information</source>
         <translation>Información</translation>

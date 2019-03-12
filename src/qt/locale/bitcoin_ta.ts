@@ -52,7 +52,7 @@
     </message>
     </context>
 <context>
-    <name>QtumGUI</name>
+    <name>SiriusGUI</name>
     <message>
         <source>&amp;Overview</source>
         <translation>&amp;கண்ணோட்டம்</translation>
@@ -90,8 +90,8 @@
         <translation>&amp;செய்தியை சரிசெய்...</translation>
     </message>
     <message>
-        <source>Qtum</source>
-        <translation>Qtum</translation>
+        <source>Sirius</source>
+        <translation>Sirius</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -225,8 +225,8 @@
         <translation>நல்வரவு</translation>
     </message>
     <message>
-        <source>Qtum</source>
-        <translation>Qtum</translation>
+        <source>Sirius</source>
+        <translation>Sirius</translation>
     </message>
     <message>
         <source>Error</source>
@@ -710,10 +710,10 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>qtum-core</name>
+    <name>sirius-core</name>
     <message>
-        <source>Qtum Core</source>
-        <translation>Qtum மையம்</translation>
+        <source>Sirius Core</source>
+        <translation>Sirius மையம்</translation>
     </message>
     <message>
         <source>Information</source>

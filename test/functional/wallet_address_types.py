@@ -62,7 +62,7 @@ from test_framework.util import (
     sync_blocks,
     sync_mempools,
 )
-from test_framework.qtumconfig import COINBASE_MATURITY
+from test_framework.siriusconfig import COINBASE_MATURITY
 
 
 class AddressTypeTest(BitcoinTestFramework):

@@ -26,7 +26,7 @@ ReceiveTokenPage::~ReceiveTokenPage()
 void ReceiveTokenPage::setAddress(QString address)
 {
     m_address = address;
-    createQRCode();
+    createERCode();
 }
 
 void ReceiveTokenPage::setSymbol(QString symbol)
@@ -41,27 +41,27 @@ void ReceiveTokenPage::on_copyAddressClicked()
         GUIUtil::setClipboard(m_address);
 }
 
-void ReceiveTokenPage::createQRCode()
+void ReceiveTokenPage::createERCode()
 {
     SendCoinsRecipient info;
     if(!m_address.isEmpty())
     {
         info.address = m_address;
-        if(ReceiveRequestDialog::createQRCode(ui->lblQRCode, info))
+        if(ReceiveRequestDialog::createERCode(ui->lblERCode, info))
         {
-            ui->lblQRCode->setVisible(true);
-            ui->lblQRCode->setScaledContents(true);
+            ui->lblERCode->setVisible(true);
+            ui->lblERCode->setScaledContents(true);
         }
         else
         {
-            ui->lblQRCode->setVisible(false);
+            ui->lblERCode->setVisible(false);
         }
         ui->labelTokenAddress->setText(m_address);
         ui->copyAddressButton->setVisible(true);
     }
     else
     {
-        ui->lblQRCode->clear();
+        ui->lblERCode->clear();
         ui->labelTokenAddress->setText("");
         ui->labelTokenAddressText->setText("");
         ui->copyAddressButton->setVisible(false);

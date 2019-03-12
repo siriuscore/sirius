@@ -75,12 +75,12 @@ struct TokenData
     {}
 };
 
-bool ToHash160(const std::string& strQtumAddress, std::string& strHash160)
+bool ToHash160(const std::string& strSiriusAddress, std::string& strHash160)
 {
-    CTxDestination qtumAddress = DecodeDestination(strQtumAddress);
-    if(!IsValidDestination(qtumAddress))
+    CTxDestination siriusAddress = DecodeDestination(strSiriusAddress);
+    if(!IsValidDestination(siriusAddress))
         return false;
-    const CKeyID * keyid = boost::get<CKeyID>(&qtumAddress);
+    const CKeyID * keyid = boost::get<CKeyID>(&siriusAddress);
     if(keyid){
         strHash160 = HexStr(valtype(keyid->begin(),keyid->end()));
     }else{
@@ -89,13 +89,13 @@ bool ToHash160(const std::string& strQtumAddress, std::string& strHash160)
     return true;
 }
 
-bool ToQtumAddress(const std::string& strHash160, std::string& strQtumAddress)
+bool ToSiriusAddress(const std::string& strHash160, std::string& strSiriusAddress)
 {
     uint160 key(ParseHex(strHash160.c_str()));
     CKeyID keyid(key);
-    CTxDestination qtumAddress = keyid;
-    if(IsValidDestination(qtumAddress)){
-        strQtumAddress = EncodeDestination(qtumAddress);
+    CTxDestination siriusAddress = keyid;
+    if(IsValidDestination(siriusAddress)){
+        strSiriusAddress = EncodeDestination(siriusAddress);
         return true;
     }
     return false;
@@ -639,9 +639,9 @@ bool Token::execEvents(int64_t fromBlock, int64_t toBlock, int func, std::vector
             TokenEvent tokenEvent;
             tokenEvent.address = variantMap.value("contractAddress").toString().toStdString();
             tokenEvent.sender = topicsList[1].toString().toStdString().substr(24);
-            ToQtumAddress(tokenEvent.sender, tokenEvent.sender);
+            ToSiriusAddress(tokenEvent.sender, tokenEvent.sender);
             tokenEvent.receiver = topicsList[2].toString().toStdString().substr(24);
-            ToQtumAddress(tokenEvent.receiver, tokenEvent.receiver);
+            ToSiriusAddress(tokenEvent.receiver, tokenEvent.receiver);
             tokenEvent.blockHash = uint256S(variantMap.value("blockHash").toString().toStdString());
             tokenEvent.blockNumber = variantMap.value("blockNumber").toLongLong();
             tokenEvent.transactionHash = uint256S(variantMap.value("transactionHash").toString().toStdString());

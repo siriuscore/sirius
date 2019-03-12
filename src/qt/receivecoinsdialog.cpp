@@ -134,8 +134,8 @@ void ReceiveCoinsDialog::clear()
     ui->leAddress->setText("");
     ui->copyAddressButton->setEnabled(false);
     QPixmap emptyPixmap;
-    ui->lblQRCode->setPixmap(emptyPixmap);
-    ui->lblQRCode->setText("");
+    ui->lblERCode->setPixmap(emptyPixmap);
+    ui->lblERCode->setText("");
     updateDisplayUnit();
 }
 
@@ -208,9 +208,9 @@ void ReceiveCoinsDialog::on_recentRequestsView_clicked(const QModelIndex &index)
     ui->reqMessage->setText(info.message);
     ui->reqAmount->setValue(info.amount);
 
-    if(ReceiveRequestDialog::createQRCode(ui->lblQRCode, info))
+    if(ReceiveRequestDialog::createERCode(ui->lblERCode, info))
     {
-        ui->lblQRCode->setScaledContents(true);
+        ui->lblERCode->setScaledContents(true);
     }
 
     ui->copyAddressButton->setEnabled(true);

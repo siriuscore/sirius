@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>QRCToken</class>
- <widget class="QWidget" name="QRCToken">
+ <class>ERCToken</class>
+ <widget class="QWidget" name="ERCToken">
   <property name="geometry">
    <rect>
     <x>0</x>

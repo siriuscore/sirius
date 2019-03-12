@@ -155,48 +155,48 @@ BASE_SCRIPTS = [
     # Don't append tests at the end to avoid merge conflicts
     # Put them in a random line within the section that fits their approximate run-time
 
-    # qtum
-    'qtum_dgp.py',
-    'qtum_pos.py',
-    'qtum_opcall.py',
-    'qtum_opcreate.py',
-    'qtum_8mb_block.py',
-    'qtum_gas_limit.py',
-    'qtum_searchlog.py',
-    'qtum_pos_segwit.py',
-    'qtum_state_root.py',
-    'qtum_evm_globals.py',
-    'qtum_null_sender.py',
-    'qtum_waitforlogs.py',
-    'qtum_block_header.py',
-    'qtum_callcontract.py',
-    'qtum_spend_op_call.py',
-    'qtum_condensing_txs.py',
-    'qtum_createcontract.py',
-    'qtum_sendtocontract.py',
-    'qtum_identical_refunds.py',
-    'qtum_create_eth_op_code.py',
-    'qtum_gas_limit_overflow.py',
-    'qtum_call_empty_contract.py',
-    'qtum_dgp_block_size_sync.py',
-    'qtum_pos_conflicting_txs.py',
-    'qtum_globals_state_changer.py',
-    'qtum_no_exec_call_disabled.py',
-    'qtum_soft_block_gas_limits.py',
-    'qtum_dgp_block_size_restart.py',
-    'qtum_searchlog_restart_node.py',
-    'qtum_immature_coinstake_spend.py',
-    'qtum_transaction_prioritization.py',
-    'qtum_assign_mpos_fees_to_gas_refund.py',
-    'qtum_ignore_mpos_participant_reward.py',
-    'qtum_many_value_refunds_from_same_tx.py',
-    'qtum_combined_outputs_exceed_gas_limit.py',
-    'qtum_dgp_gas_price_lingering_mempool_tx.py',
-    'qtum_header_spam.py',
-    'qtum_divergence_dos.py',
-    'qtum_prioritize_create_over_call.py',
-    'qtum_callcontract_timestamp.py',
-    'qtum_transaction_receipt_origin_contract_address.py',
+    # sirius
+    'sirius_dgp.py',
+    'sirius_pos.py',
+    'sirius_opcall.py',
+    'sirius_opcreate.py',
+    'sirius_8mb_block.py',
+    'sirius_gas_limit.py',
+    'sirius_searchlog.py',
+    'sirius_pos_segwit.py',
+    'sirius_state_root.py',
+    'sirius_evm_globals.py',
+    'sirius_null_sender.py',
+    'sirius_waitforlogs.py',
+    'sirius_block_header.py',
+    'sirius_callcontract.py',
+    'sirius_spend_op_call.py',
+    'sirius_condensing_txs.py',
+    'sirius_createcontract.py',
+    'sirius_sendtocontract.py',
+    'sirius_identical_refunds.py',
+    'sirius_create_eth_op_code.py',
+    'sirius_gas_limit_overflow.py',
+    'sirius_call_empty_contract.py',
+    'sirius_dgp_block_size_sync.py',
+    'sirius_pos_conflicting_txs.py',
+    'sirius_globals_state_changer.py',
+    'sirius_no_exec_call_disabled.py',
+    'sirius_soft_block_gas_limits.py',
+    'sirius_dgp_block_size_restart.py',
+    'sirius_searchlog_restart_node.py',
+    'sirius_immature_coinstake_spend.py',
+    'sirius_transaction_prioritization.py',
+    'sirius_assign_mpos_fees_to_gas_refund.py',
+    'sirius_ignore_mpos_participant_reward.py',
+    'sirius_many_value_refunds_from_same_tx.py',
+    'sirius_combined_outputs_exceed_gas_limit.py',
+    'sirius_dgp_gas_price_lingering_mempool_tx.py',
+    'sirius_header_spam.py',
+    'sirius_divergence_dos.py',
+    'sirius_prioritize_create_over_call.py',
+    'sirius_callcontract_timestamp.py',
+    'sirius_transaction_receipt_origin_contract_address.py',
 ]
 
 EXTENDED_SCRIPTS = [
@@ -223,7 +223,7 @@ EXTENDED_SCRIPTS = [
     'feature_notifications.py',
     'rpc_invalidateblock.py',
     'feature_rbf.py',
-    # Version <4 blocks are never allowed in regtest on qtum
+    # Version <4 blocks are never allowed in regtest on sirius
     'p2p_unrequested_blocks.py',
     'feature_dersig.py',
     'feature_cltv.py'
@@ -355,8 +355,8 @@ def run_tests(test_list, src_dir, build_dir, tmpdir, jobs=1, enable_coverage=Fal
 
     # Warn if bitcoind is already running (unix only)
     try:
-        if subprocess.check_output(["pidof", "qtumd"]) is not None:
-            print("%sWARNING!%s There is already a qtumd process running on this system. Tests may fail unexpectedly due to resource contention!" % (BOLD[1], BOLD[0]))
+        if subprocess.check_output(["pidof", "siriusd"]) is not None:
+            print("%sWARNING!%s There is already a siriusd process running on this system. Tests may fail unexpectedly due to resource contention!" % (BOLD[1], BOLD[0]))
     except (OSError, subprocess.SubprocessError):
         pass
 
@@ -567,7 +567,7 @@ class TestResult():
 def check_script_prefixes():
     """Check that test scripts start with one of the allowed name prefixes."""
 
-    good_prefixes_re = re.compile("(example|feature|interface|mempool|mining|p2p|rpc|wallet|qtum)_")
+    good_prefixes_re = re.compile("(example|feature|interface|mempool|mining|p2p|rpc|wallet|sirius)_")
     bad_script_names = [script for script in ALL_SCRIPTS if good_prefixes_re.match(script) is None]
 
     if bad_script_names:
