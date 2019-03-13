@@ -247,7 +247,7 @@ static const unsigned int DEFAULT_CHECKLEVEL = 3;
 // Setting the target to > than 550MB will make it likely we can respect the target.
 static const uint64_t MIN_DISK_SPACE_FOR_BLOCK_FILES = 550 * 1024 * 1024;
 
-inline int64_t FutureDrift(uint32_t nTime) { return nTime + 15; }
+inline int64_t FutureDrift(uint32_t nTime) { return nTime + 900; }
 
 /** 
  * Process an incoming block. This only returns after the best known valid

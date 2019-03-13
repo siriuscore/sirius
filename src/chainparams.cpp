@@ -83,7 +83,7 @@ class CMainParams : public CChainParams {
 public:
     CMainParams() {
         strNetworkID = "main";
-        consensus.nSubsidyHalvingInterval = 985500; // sirius halving every 4 years
+        consensus.nSubsidyHalvingInterval = 2880; // sirius halving every 4 years
         consensus.BIP16Exception = uint256S("0x000075aef83cf2853580f8ae8ce6f8c3096cfa21d98334d6e3f95e5582ed986c");
         consensus.BIP34Height = 0;
         consensus.BIP34Hash = uint256S("0x000075aef83cf2853580f8ae8ce6f8c3096cfa21d98334d6e3f95e5582ed986c");
@@ -91,8 +91,8 @@ public:
         consensus.BIP66Height = 0; // 00000000000000000379eaa19dce8c9b722d46ae6a57c2f1a988119488b50931
         consensus.powLimit = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.posLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 16 * 60; // 16 minutes
-        consensus.nPowTargetSpacing = 2 * 64;
+        consensus.nPowTargetTimespan = 6 * 60; // 6 minutes
+        consensus.nPowTargetSpacing = 3 * 60;
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = true;
         consensus.fPoSNoRetargeting = false;
@@ -113,10 +113,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 999999999999ULL;
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000b440c752306b906b13"); // sirius
+        consensus.nMinimumChainWork = uint256S("0x00"); // sirius
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0xaaef09196d25c83a31d2c82f7795a63dc99ef11d07cd6d508cdbd506ed3043b4"); //253809
+        consensus.defaultAssumeValid = uint256S("0x258383cd6555b1c5d59713a70181a26f9033abe8057835eff2926abc23fa5a20"); //40000
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -127,7 +127,7 @@ public:
         pchMessageStart[1] = 0xcf;
         pchMessageStart[2] = 0xa6;
         pchMessageStart[3] = 0xd3;
-        nDefaultPort = 3888;
+        nDefaultPort = 55644;
         nPruneAfterHeight = 100000;
 
         genesis = CreateGenesisBlock(1504695029, 8026361, 0x1f00ffff, 1, 50 * COIN);
@@ -140,12 +140,16 @@ public:
         // This is fine at runtime as we'll fall back to using them as a oneshot if they don't support the
         // service bits we want, but we should get them updated to support all service bits wanted by any
         // release ASAP to avoid it where possible.
-        vSeeds.emplace_back("sirius3.dynu.net"); // Sirius mainnet
-        vSeeds.emplace_back("sirius5.dynu.net"); // Sirius mainnet
-        vSeeds.emplace_back("sirius6.dynu.net"); // Sirius mainnet
-        vSeeds.emplace_back("sirius7.dynu.net"); // Sirius mainnet
+        vSeeds.emplace_back("46.101.164.93"); // Sirius mainnet
+        vSeeds.emplace_back("159.89.47.201"); // Sirius mainnet
+        vSeeds.emplace_back("163.172.71.184"); // Sirius mainnet
+        vSeeds.emplace_back("173.82.15.7"); // Sirius mainnet
+	vSeeds.emplace_back("94.130.15.169"); // Sirius mainnet
+	vSeeds.emplace_back("104.225.219.29"); // Sirius mainnet
+	vSeeds.emplace_back("93.104.209.17"); // Sirius mainnet
+	vSeeds.emplace_back("104.251.219.220"); // Sirius mainnet
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,58);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,63);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,50);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,128);
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E};
@@ -162,31 +166,28 @@ public:
         checkpointData = {
             {
                 { 0, uint256S("000075aef83cf2853580f8ae8ce6f8c3096cfa21d98334d6e3f95e5582ed986c")},
-                { 5000, uint256S("00006a5338e5647872bd91de1d291365e941e14dff1939b5f16d1804d1ce61cd")}, //last PoW block
-                { 45000, uint256S("060c6af680f6975184c7a17059f2ff4970544fcfd4104e73744fe7ab7be14cfc")},
-                { 90000, uint256S("66fcf426b0aa6f2c9e3330cb2775e9e13c4a2b8ceedb50f8931ae0e12078ad50")},
-                { 245000, uint256S("ed79607feeadcedf5b94f1c43df684af5106e79b0989a008a88f9dc2221cc12a")},
+                { 50000, uint256S("ec69547c015eda8d2074e1b20925b7f767a93018fbba98af33f619b1ed3ac246")}
             }
         };
 
         chainTxData = ChainTxData{
             // Data as of block 3e76a9f460f5df039f828e3c259da03e1b4e1ec883cbf687a228e346cc457360 (height 253817)
-        	1540769472, // * UNIX timestamp of last known number of transactions
-			2361221, // * total number of transactions between genesis and that timestamp
+        	1531930527, // * UNIX timestamp of last known number of transactions
+			131864, // * total number of transactions between genesis and that timestamp
                             //   (the tx=... number in the SetBestChain debug.log lines)
-			0.04623395247200218 // * estimated number of transactions per second after that timestamp
+			0.007 // * estimated number of transactions per second after that timestamp
         };
 
         /* disable fallback fee on mainnet */
         m_fallback_fee_enabled = false;
 
-        consensus.nLastPOWBlock = 5000;
-        consensus.nMPoSRewardRecipients = 10;
+        consensus.nLastPOWBlock = 2000;
+        consensus.nMPoSRewardRecipients = 2;
         consensus.nFirstMPoSBlock = consensus.nLastPOWBlock + 
                                     consensus.nMPoSRewardRecipients + 
                                     COINBASE_MATURITY;
 
-        consensus.nFixUTXOCacheHFHeight=100000;
+        consensus.nFixUTXOCacheHFHeight=100000; //disabled but fixed elsewhere
     }
 };
 
@@ -197,7 +198,7 @@ class CTestNetParams : public CChainParams {
 public:
     CTestNetParams() {
         strNetworkID = "test";
-        consensus.nSubsidyHalvingInterval = 985500; // sirius halving every 4 years
+        consensus.nSubsidyHalvingInterval = 2880; // sirius halving every 4 years
         consensus.BIP16Exception = uint256S("0x0000e803ee215c0684ca0d2f9220594d3f828617972aad66feb2ba51f5e14222");
         consensus.BIP34Height = 0;
         consensus.BIP34Hash = uint256S("0x0000e803ee215c0684ca0d2f9220594d3f828617972aad66feb2ba51f5e14222");
@@ -205,8 +206,8 @@ public:
         consensus.BIP66Height = 0; // 000000002104c8c45e99a8853285a3b592602a3ccde2b832481da85e9e4ba182
         consensus.powLimit = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.posLimit = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 16 * 60; // 16 minutes
-        consensus.nPowTargetSpacing = 2 * 64;
+        consensus.nPowTargetTimespan = 6 * 60; // 6 minutes
+        consensus.nPowTargetSpacing = 3 * 60;
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = true;
         consensus.fPoSNoRetargeting = false;
@@ -227,10 +228,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 999999999999ULL;
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000032688a8f5f0e1e15d5"); // sirius
+        consensus.nMinimumChainWork = uint256S("0x00"); // sirius
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x1781c14b737983eba5b68a1813599e3e0d2c6561e36989281f370a2107a3027b"); //224905
+        consensus.defaultAssumeValid = uint256S("0x0000e803ee215c0684ca0d2f9220594d3f828617972aad66feb2ba51f5e14222"); //genesis
 
         pchMessageStart[0] = 0x0d;
         pchMessageStart[1] = 0x22;
@@ -247,7 +248,14 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("sirius4.dynu.net"); // Sirius testnet
+        vSeeds.emplace_back("46.101.164.93"); 
+        vSeeds.emplace_back("159.89.47.201"); 
+        vSeeds.emplace_back("163.172.71.184"); 
+        vSeeds.emplace_back("173.82.15.7"); 
+	vSeeds.emplace_back("94.130.15.169"); 
+	vSeeds.emplace_back("104.225.219.29"); 
+	vSeeds.emplace_back("93.104.209.17"); 
+	vSeeds.emplace_back("104.251.219.220"); 
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,120);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,110);
@@ -266,25 +274,22 @@ public:
 
         checkpointData = {
             {
-                {0, uint256S("0000e803ee215c0684ca0d2f9220594d3f828617972aad66feb2ba51f5e14222")},
-                {5000, uint256S("000000302bc22f2f65995506e757fff5c824545db5413e871d57d27a0997e8a0")}, //last PoW block
-                {77000, uint256S("f41e2e8d09bca38827c23cad46ed6d434902da08415d2314d0c8ce285b1970cb")},
-                {230000, uint256S("cd17baf80fa817dd543b83897ccb1e07350019e5b812f4956f69efe855d62601")},
+                {0, uint256S("0000e803ee215c0684ca0d2f9220594d3f828617972aad66feb2ba51f5e14222")}
             }
         };
 
         chainTxData = ChainTxData{
             // Data as of block 2820e75dd90210a1dcf59efe839a1e5f212e272c6bcb7fd94e749f5e01822813 (height 239905)
-        	1540769920,
-			544173,
-			0.01654274965800273
+        	0,
+			0,
+			0
         };
 
         /* enable fallback fee on testnet */
         m_fallback_fee_enabled = true;
 
-        consensus.nLastPOWBlock = 5000;
-        consensus.nMPoSRewardRecipients = 10;
+        consensus.nLastPOWBlock = 2000;
+        consensus.nMPoSRewardRecipients = 2;
         consensus.nFirstMPoSBlock = consensus.nLastPOWBlock + 
                                     consensus.nMPoSRewardRecipients + 
                                     COINBASE_MATURITY;
@@ -308,8 +313,8 @@ public:
         consensus.BIP66Height = 0; // BIP66 activated on regtest (Used in rpc activation tests)
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.posLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 16 * 60; // 16 minutes
-        consensus.nPowTargetSpacing = 2 * 64;
+        consensus.nPowTargetTimespan = 6 * 60; // 16 minutes
+        consensus.nPowTargetSpacing = 3 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
         consensus.fPoSNoRetargeting = true;
