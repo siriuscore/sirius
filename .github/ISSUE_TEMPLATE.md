@@ -1,4 +1,5 @@
-<!-- This issue tracker is only for technical issues related to Sirius. -->
+<!-- This issue tracker is only for technical issues related to the Sirius Core wallet. -->
+<!-- Please keep in mind that we are implementing a new consensus algorithm and that things may be somewhat broken at first. -->
 
 <!-- Describe the issue -->
 <!--- What behavior did you expect? -->
