@@ -224,7 +224,7 @@ public:
 	/// Add some amount to balance.
 	/// Will initialise the address if it has never been used.
 	// void addBalance(Address const& _id, u256 const& _amount);
-	virtual void addBalance(Address const& _id, u256 const& _amount); // qtum
+	virtual void addBalance(Address const& _id, u256 const& _amount); // sirius
 
 	/// Subtract the @p _value amount from the balance of @p _addr account.
 	/// @throws NotEnoughCash if the balance of the account is less than the
@@ -309,7 +309,7 @@ public:
 	virtual ~State(){}
 
 // private:
-protected: // qtum
+protected: // sirius
 	/// Turns all "touched" empty accounts into non-alive accounts.
 	void removeEmptyAccounts();
 

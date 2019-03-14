@@ -16,8 +16,8 @@
 */
 #include "../GenesisInfo.h"
 
-static dev::h256 const c_genesisStateRootQtumTestNetwork("2ebd2f054ed409f4bc77921ce642517eb574470c01772dc26658d016a4ccc825");
-static std::string const c_genesisInfoQtumTestNetwork = std::string() +
+static dev::h256 const c_genesisStateRootSiriusTestNetwork("2ebd2f054ed409f4bc77921ce642517eb574470c01772dc26658d016a4ccc825");
+static std::string const c_genesisInfoSiriusTestNetwork = std::string() +
 R"E(
 {
 	"sealEngine": "Ethash",

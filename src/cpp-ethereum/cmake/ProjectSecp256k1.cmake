@@ -39,7 +39,7 @@ else()
             ${CMAKE_CURRENT_LIST_DIR}/secp256k1/CMakeLists.txt <SOURCE_DIR>
         CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
                    -DCMAKE_POSITION_INDEPENDENT_CODE=${BUILD_SHARED_LIBS}
-	           -DCMAKE_POSITION_INDEPENDENT_CODE=ON### qtum
+	           -DCMAKE_POSITION_INDEPENDENT_CODE=ON### sirius
                    ${_only_release_configuration}
         LOG_CONFIGURE 1
         BUILD_COMMAND ""

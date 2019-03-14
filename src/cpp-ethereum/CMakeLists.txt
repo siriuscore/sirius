@@ -44,7 +44,7 @@ endif()
 
 set(CMAKE_SKIP_INSTALL_ALL_DEPENDENCY On)
 
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)### qtum
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)### sirius
 
 include(EthOptions)
 include(EthCompilerSettings)
