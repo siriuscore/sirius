@@ -4,7 +4,7 @@ https://getsirius.io
 
 What is Sirius?
 -------------
-Sirius is a smart contract platform based on Bitcoin and Ethereum's EVM. To encourage developer participation, Sirius is distributed for free among developers and blockchain enthusiasts. The technical white paper describing its new Reputation-Weighted Proof-of-Stake (RWPoS) algorithm will soon be released, which will boost transaction speed to a maximum of 11000 TPS with a minimized degradation of decentralization and make 51% attacks infeasible.
+Sirius is a smart contract platform based on Bitcoin and Ethereum's EVM. To encourage developer participation, Sirius is distributed for free among developers and blockchain enthusiasts. The technical white paper describing its new Reputation-Weighted Proof-of-Stake (RWPoS) algorithm will soon be released, which will boost transaction speed to a maximum of 10000 TPS with a minimized degradation of decentralization and make 51% attacks infeasible.
 
 Communication
 -------------
