@@ -547,8 +547,8 @@ void SetupServerArgs()
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/siriusproject/sirius>";
-    const std::string URL_WEBSITE = "<https://sirius.org>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/siriuscore/sirius>";
+    const std::string URL_WEBSITE = "<https://getsirius.io>";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i"), COPYRIGHT_YEAR) + " ") + "\n" +
            "\n" +
