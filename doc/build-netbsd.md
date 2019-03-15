@@ -22,7 +22,7 @@ libtool
 pkg-config
 python37
 
-git clone https://github.com/siriusproject/sirius --recursive
+git clone https://github.com/siriuscore/sirius --recursive
 ```
 
 See [dependencies.md](dependencies.md) for a complete overview.

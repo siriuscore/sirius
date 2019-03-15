@@ -23,9 +23,9 @@ packages:
 - "python"
 - "rename"
 remotes:
-- "url": "https://github.com/siriusproject/sirius.git"
+- "url": "https://github.com/siriuscore/sirius.git"
   "dir": "sirius"
-- "url": "https://github.com/siriusproject/cpp-eth-sirius.git"
+- "url": "https://github.com/siriuscore/cpp-eth-sirius.git"
   "dir": "cpp-eth-sirius"
 files: []
 script: |

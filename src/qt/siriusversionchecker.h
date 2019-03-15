@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#define SIRX_RELEASES "https://github.com/siriusproject/sirius/releases"
+#define SIRX_RELEASES "https://github.com/siriuscore/sirius/releases"
 
 class Version {
 

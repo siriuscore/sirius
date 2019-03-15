@@ -43,7 +43,7 @@ Build Sirius Core
 
 1. Clone the Sirius Core source code and cd into `sirius`
 
-        git clone --recursive https://github.com/siriusproject/sirius.git
+        git clone --recursive https://github.com/siriuscore/sirius.git
         cd sirius
         git submodule update --init --recursive
 

@@ -24,7 +24,7 @@ See [dependencies.md](dependencies.md) for a complete overview.
 
 Download the source code:
 ```
-git clone https://github.com/siriusproject/sirius --recursive
+git clone https://github.com/siriuscore/sirius --recursive
 ```
 
 ## Building Sirius Core

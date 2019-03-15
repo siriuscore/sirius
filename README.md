@@ -29,7 +29,7 @@ Building Sirius Core
     # If you want to build the Qt GUI:
     sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler qrencode
 
-    git clone https://github.com/siriusproject/sirius --recursive
+    git clone https://github.com/siriuscore/sirius --recursive
     cd sirius
 
     # Note autogen will prompt to install some more dependencies if needed
@@ -39,7 +39,7 @@ Building Sirius Core
     
 ### Build on CentOS
 
-Here is a brief description for compiling Sirius on CentOS, for more details please refer to [the specific document](https://github.com/siriusproject/sirius/blob/master/doc/build-unix.md)
+Here is a brief description for compiling Sirius on CentOS, for more details please refer to [the specific document](https://github.com/siriuscore/sirius/blob/master/doc/build-unix.md)
 
     # Compiling boost manually
     sudo yum install python-devel bzip2-devel
@@ -59,7 +59,7 @@ Here is a brief description for compiling Sirius on CentOS, for more details ple
     sudo yum install qt5-qttools-devel protobuf-devel qrencode-devel
     
     # Building Sirius
-    git clone --recursive https://github.com/siriusproject/sirius.git
+    git clone --recursive https://github.com/siriuscore/sirius.git
     cd sirius
     ./autogen.sh
     ./configure
@@ -90,7 +90,7 @@ NOTE: Building with Qt4 is still supported, however, could result in a broken UI
 
 1. Clone the sirius source code and cd into `sirius`
 
-        git clone --recursive https://github.com/siriusproject/sirius.git
+        git clone --recursive https://github.com/siriuscore/sirius.git
         cd sirius
 
 2.  Build sirius-core:

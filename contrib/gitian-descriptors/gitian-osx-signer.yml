@@ -7,7 +7,7 @@ architectures:
 packages:
 - "faketime"
 remotes:
-- "url": "https://github.com/siriusproject/sirius-detached-sigs.git"
+- "url": "https://github.com/siriuscore/sirius-detached-sigs.git"
   "dir": "signature"
 files:
 - "sirius-osx-unsigned.tar.gz"
