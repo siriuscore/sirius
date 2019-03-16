@@ -1,4 +1,4 @@
-This directory contains integration tests that test bitcoind and its
+This directory contains integration tests that test siriusd and its
 utilities in their entirety. It does not contain unit tests, which
 can be found in [/src/test](/src/test), [/src/wallet/test](/src/wallet/test),
 etc.
