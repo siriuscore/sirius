@@ -8,8 +8,11 @@ Sirius is a smart contract platform based on Bitcoin and Ethereum's EVM. To enco
 
 Communication
 -------------
+
 The Sirius slack can be found at: https://sirx.slack.com
+
 Join telegram at: https://telegram.getsirius.io
+
 Or come talk to us on discord: https://discord.getsirius.io
 
 Building Sirius Core
