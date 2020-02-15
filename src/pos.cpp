@@ -64,7 +64,13 @@ bool CheckStakeKernelHash(CBlockIndex* pindexPrev, unsigned int nBits, uint32_t 
     int64_t nValueIn = prevoutValue;
     arith_uint256 bnWeight = arith_uint256(nValueIn);
     bnTarget *= bnWeight;
-
+	//// RWPoS
+	
+	//// include reputation weight if we're in regtest mode
+	
+	//if (chainparams.MineBlocksOnDemand()) bnTarget *= bnRep;
+	
+	////
     targetProofOfStake = ArithToUint256(bnTarget);
 
     uint256 nStakeModifier = pindexPrev->nStakeModifier;

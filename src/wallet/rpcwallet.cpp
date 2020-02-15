@@ -41,6 +41,11 @@
 
 #include <functional>
 
+//rwpos
+#include <string>
+
+#include <numeric>
+
 static const std::string WALLET_ENDPOINT_BASE = "/wallet/";
 
 bool GetWalletNameFromJSONRPCRequest(const JSONRPCRequest& request, std::string& wallet_name)
@@ -2136,6 +2141,7 @@ static UniValue ListReceived(CWallet * const pwallet, const UniValue& params, bo
             filter = filter | ISMINE_WATCH_ONLY;
 
     bool has_filtered_address = false;
+	//validate address
     CTxDestination filtered_address = CNoDestination();
     if (!by_label && params.size() > 3) {
         if (!IsValidDestinationString(params[3].get_str())) {
@@ -2264,6 +2270,124 @@ static UniValue ListReceived(CWallet * const pwallet, const UniValue& params, bo
     return ret;
 }
 
+//// RWPoS
+
+// population standard deviation
+double stddev(std::vector<double> const & func)
+{
+    double mean = std::accumulate(func.begin(), func.end(), 0.0) / func.size();
+    double sq_sum = std::inner_product(func.begin(), func.end(), func.begin(), 0.0,
+        [](double const & x, double const & y) { return x + y; },
+        [mean](double const & x, double const & y) { return (x - mean)*(y - mean); });
+    return std::sqrt(sq_sum / ( func.size()));
+}
+
+static UniValue computereputation(const JSONRPCRequest& request)
+{
+	//todo: importaddress
+	
+	std::shared_ptr<CWallet> const wallet = GetWalletForJSONRPCRequest(request);
+    CWallet* const pwallet = wallet.get();
+	if (!EnsureWalletIsAvailable(pwallet, request.fHelp)) {
+        return NullUniValue;
+    }
+
+	if (request.fHelp || request.params.size() != 1)
+        throw std::runtime_error(
+            "getreputation ( address )\n"
+            "\nCalculate reputation for the specified address.\n"
+            "\nArguments:\n"
+            "1. address           (string) The address to calculate for.\n"
+            "\nResult: reputation (numeric)\n"
+            "\nExamples:\n"
+            + HelpExampleRpc("getreputation", "\"1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd\"")
+        );
+	
+	
+    
+	// Make sure the results are valid at least up to the most recent block
+    // the user could have gotten from another RPC command prior to now
+    pwallet->BlockUntilSyncedToCurrentChain();
+
+    LOCK2(cs_main, pwallet->cs_wallet);
+	
+	//// rwpos
+	int blocktime = 0;
+	std::vector<int> blockTimes;
+	UniValue result(UniValue::VARR);
+
+	//todo: validate address
+	
+	if (!IsValidDestinationString(request.params[0].get_str())) {
+            throw JSONRPCError(RPC_WALLET_ERROR, "address parameter was invalid");
+    }
+	
+	//get number of blocks staked by this address and timestamps
+	for (const std::pair<const uint256, CWalletTx>& pairWtx : pwallet->mapWallet) {
+        const CWalletTx& wtx = pairWtx.second;
+		// don't count dev funded
+		if (wtx.IsCoinBase()) continue;
+		//if transaction is a stake, get the blocktime
+        if (wtx.IsCoinStake()) { 
+			for (const CTxOut& txout : wtx.tx->vout)
+				{		
+					CTxDestination address = CNoDestination();
+					if (ExtractDestination(txout.scriptPubKey, address)) 
+						if (EncodeDestination(address) == request.params[0].get_str()) {
+							blocktime = LookupBlockIndex(wtx.hashBlock)->GetBlockTime();
+							//if (!blockTimes.empty() && (blockTimes.back() != blocktime)) {
+								blockTimes.push_back(blocktime);
+								result.push_back(wtx.GetDepthInMainChain());
+								result.push_back(EncodeDestination(address));
+							//}
+						}
+				}
+		
+		}
+	}
+	//sort everything before push_backing it in a loop
+	if (!blockTimes.empty())
+	{
+		std::sort(blockTimes.begin(), blockTimes.end());
+		// Remove duplicates (v2)
+		std::vector<int> cleanblockTimes;
+		for (int i = 0; i < blockTimes.size(); i++) {
+			if (i > 0 && blockTimes[i] == blockTimes[i - 1]) continue;
+			cleanblockTimes.push_back(blockTimes[i]);
+		}
+		
+		//add sorted blockTimes to result
+		for(auto const& value: cleanblockTimes) {
+			result.push_back(std::to_string(value));
+		}
+		
+		//calculate deltas
+		std::adjacent_difference(cleanblockTimes.begin(), cleanblockTimes.end(), cleanblockTimes.begin());
+		cleanblockTimes.erase (cleanblockTimes.begin());
+		//add deltas to result
+		/*for(auto const& value: blockTimes) {
+			result.push_back(value);
+		}*/
+		
+		//get standard deviation and current blockheight
+		double nHeight = (double) chainActive.Height();
+		std::vector<double> blockTimeDouble(cleanblockTimes.begin(), cleanblockTimes.end());
+		double timeStdev = stddev(blockTimeDouble);
+		//result.push_back(timeStdev);
+		//now calculate reputation score
+		//todo add growth rate limit function
+		double Rep = (double) (cleanblockTimes.size() + 1 ) / (nHeight * (timeStdev + 1));
+		result.push_back(Rep);
+		result.push_back(request.params[0]);
+	}
+	else
+	{
+		throw std::runtime_error(
+            "address not found, add with importaddress.");
+	}
+	return result;
+}
+
 static UniValue listreceivedbyaddress(const JSONRPCRequest& request)
 {
     std::shared_ptr<CWallet> const wallet = GetWalletForJSONRPCRequest(request);
@@ -2317,7 +2441,8 @@ static UniValue listreceivedbyaddress(const JSONRPCRequest& request)
 
 static UniValue listreceivedbylabel(const JSONRPCRequest& request)
 {
-    std::shared_ptr<CWallet> const wallet = GetWalletForJSONRPCRequest(request);
+    //rwpos
+	std::shared_ptr<CWallet> const wallet = GetWalletForJSONRPCRequest(request);
     CWallet* const pwallet = wallet.get();
 
     if (!EnsureWalletIsAvailable(pwallet, request.fHelp)) {
@@ -5549,7 +5674,9 @@ static const CRPCCommand commands[] =
     { "wallet",             "reservebalance",                   &reservebalance,                {"reserve", "amount"} },
     { "wallet",             "createcontract",                   &createcontract,                {"bytecode", "gasLimit", "gasPrice", "senderAddress", "broadcast", "changeToSender"} },
     { "wallet",             "sendtocontract",                   &sendtocontract,                {"contractaddress", "bytecode", "amount", "gasLimit", "gasPrice", "senderAddress", "broadcast", "changeToSender"} },
-
+	
+	// RWPoS
+	{ "wallet",             "getreputation",                &computereputation,             {"address_filter"} },
 
     /** Account functions (deprecated) */
     { "wallet",             "getaccountaddress",                &getaccountaddress,             {"account"} },
