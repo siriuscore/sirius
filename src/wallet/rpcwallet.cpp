@@ -2316,8 +2316,6 @@ static UniValue computereputation(const JSONRPCRequest& request)
 	std::vector<int> blockTimes;
 	UniValue result(UniValue::VARR);
 
-	//todo: validate address
-	
 	if (!IsValidDestinationString(request.params[0].get_str())) {
             throw JSONRPCError(RPC_WALLET_ERROR, "address parameter was invalid");
     }
@@ -2335,11 +2333,9 @@ static UniValue computereputation(const JSONRPCRequest& request)
 					if (ExtractDestination(txout.scriptPubKey, address)) 
 						if (EncodeDestination(address) == request.params[0].get_str()) {
 							blocktime = LookupBlockIndex(wtx.hashBlock)->GetBlockTime();
-							//if (!blockTimes.empty() && (blockTimes.back() != blocktime)) {
-								blockTimes.push_back(blocktime);
-								result.push_back(wtx.GetDepthInMainChain());
-								result.push_back(EncodeDestination(address));
-							//}
+							blockTimes.push_back(blocktime);
+							//result.push_back(wtx.GetDepthInMainChain());
+							//result.push_back(EncodeDestination(address));
 						}
 				}
 		
@@ -2349,36 +2345,26 @@ static UniValue computereputation(const JSONRPCRequest& request)
 	if (!blockTimes.empty())
 	{
 		std::sort(blockTimes.begin(), blockTimes.end());
-		// Remove duplicates (v2)
+		// remove duplicates
 		std::vector<int> cleanblockTimes;
 		for (int i = 0; i < blockTimes.size(); i++) {
 			if (i > 0 && blockTimes[i] == blockTimes[i - 1]) continue;
 			cleanblockTimes.push_back(blockTimes[i]);
 		}
 		
-		//add sorted blockTimes to result
-		for(auto const& value: cleanblockTimes) {
-			result.push_back(std::to_string(value));
-		}
-		
 		//calculate deltas
 		std::adjacent_difference(cleanblockTimes.begin(), cleanblockTimes.end(), cleanblockTimes.begin());
 		cleanblockTimes.erase (cleanblockTimes.begin());
-		//add deltas to result
-		/*for(auto const& value: blockTimes) {
-			result.push_back(value);
-		}*/
-		
+			
 		//get standard deviation and current blockheight
 		double nHeight = (double) chainActive.Height();
 		std::vector<double> blockTimeDouble(cleanblockTimes.begin(), cleanblockTimes.end());
 		double timeStdev = stddev(blockTimeDouble);
-		//result.push_back(timeStdev);
+		
 		//now calculate reputation score
 		//todo add growth rate limit function
 		double Rep = (double) (cleanblockTimes.size() + 1 ) / (nHeight * (timeStdev + 1));
 		result.push_back(Rep);
-		result.push_back(request.params[0]);
 	}
 	else
 	{
